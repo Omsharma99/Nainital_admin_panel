@@ -1,52 +1,94 @@
 import { Router } from "express";
-import { logoutUser, sendOtp, verifyOtpAndLogin } from "../controllers/user.controller.js";
-import { createScheduleController, getScheduleByIdController, getScheduleByUserIdController, deleteScheduleByIdController } from "../controllers/schedule.controller.js";
-import { createDeliveryController, getDeliveriesByIdController, getDeliveriesByUserIdController, deleteDeliveryByIdController } from "../controllers/delivery.controller.js";
-import { createBookingController, getBookingsByIdController, getBookingsByUserIdController, cancelBookingController, verifyBookingController } from "../controllers/booking.controller.js";
-import { createEmergencyContactController, getEmergencyContactsByUserIdController } from "../controllers/emergency.controller.js";
-import { sosController, shareLocationController } from "../controllers/sos.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { createOrder, verifyAndSavePayment } from "../controllers/payment.controller.js";
+
+// ----------------- User controllers -----------------
+import {
+    logoutUser,
+    sendOtp,
+    verifyOtpAndLogin
+} from "../../controllers/user.controller.js";
+
+// ----------------- Schedule controllers -----------------
+import {
+    createScheduleController,
+    getScheduleByIdController,
+    getScheduleByUserIdController,
+    deleteScheduleByIdController
+} from "../../controllers/schedule.controller.js";
+
+// ----------------- Delivery controllers -----------------
+import {
+    createDeliveryController,
+    getDeliveriesByIdController,
+    getDeliveriesByUserIdController,
+    deleteDeliveryByIdController
+} from "../../controllers/delivery.controller.js";
+
+// ----------------- Booking controllers -----------------
+import {
+    createBookingController,
+    getBookingsByIdController,
+    getBookingsByUserIdController,
+    cancelBookingController,
+    verifyBookingController
+} from "../../controllers/booking.controller.js";
+
+// ----------------- Emergency controllers -----------------
+import {
+    createEmergencyContactController,
+    getEmergencyContactsByUserIdController
+} from "../../controllers/emergency.controller.js";
+
+// ----------------- SOS controllers -----------------
+import {
+    sosController,
+    shareLocationController
+} from "../../controllers/sos.controller.js";
+
+// ----------------- Payment controllers -----------------
+import {
+    createOrder,
+    verifyAndSavePayment
+} from "../../controllers/payment.controller.js";
+
+// ----------------- Middleware -----------------
+import { verifyJWT } from "../../middlewares/auth.middleware.js";
 
 const router = Router();
 
-// User routes
-router.route('/sentOtp').post(sendOtp);
-router.route('/verifyOtp').post(verifyOtpAndLogin);
-router.route('/logout').post(verifyJWT, logoutUser);
+// ----------------- User routes -----------------
+router.post('/sentOtp', sendOtp);
+router.post('/verifyOtp', verifyOtpAndLogin);
+router.post('/logout', verifyJWT, logoutUser);
 
-// Payment routes
-router.route('/order').post(verifyJWT, createOrder);
-router.route('/payment').post(verifyJWT, verifyAndSavePayment);
+// ----------------- Payment routes -----------------
+router.post('/order', verifyJWT, createOrder);
+router.post('/payment', verifyJWT, verifyAndSavePayment);
 
-// Schedule routes
-router.route('/schedule').post(verifyJWT, createScheduleController);
-router.route('/schedule/:scheduleId')
-    .get(verifyJWT, getScheduleByIdController)
-    .delete(verifyJWT, deleteScheduleByIdController);
-router.route('/schedules/user/:userId').get(verifyJWT, getScheduleByUserIdController);
+// ----------------- Schedule routes -----------------
+router.post('/schedule', verifyJWT, createScheduleController);
+router.get('/schedule/:scheduleId', verifyJWT, getScheduleByIdController);
+router.delete('/schedule/:scheduleId', verifyJWT, deleteScheduleByIdController);
+router.get('/schedules/user/:userId', verifyJWT, getScheduleByUserIdController);
 
-// Delivery routes
-router.route('/delivery').post(verifyJWT, createDeliveryController);
-router.route('/delivery/:deliveryId')
-    .get(verifyJWT, getDeliveriesByIdController)
-    .delete(verifyJWT, deleteDeliveryByIdController);
-router.route('/deliveries/user/:userId').get(verifyJWT, getDeliveriesByUserIdController);
+// ----------------- Delivery routes -----------------
+router.post('/delivery', verifyJWT, createDeliveryController);
+router.get('/delivery/:deliveryId', verifyJWT, getDeliveriesByIdController);
+router.delete('/delivery/:deliveryId', verifyJWT, deleteDeliveryByIdController);
+router.get('/deliveries/user/:userId', verifyJWT, getDeliveriesByUserIdController);
 
-// Booking routes
-router.route('/booking').post(verifyJWT, createBookingController);
-router.route('/booking/:bookingId')
-    .get(verifyJWT, getBookingsByIdController)
-    .delete(verifyJWT, cancelBookingController);
-router.route('/bookings/user/:userId').get(verifyJWT, getBookingsByUserIdController);
-router.route('/booking/verify').post(verifyBookingController);
+// ----------------- Booking routes -----------------
+router.post('/booking', verifyJWT, createBookingController);
+router.get('/booking/:bookingId', verifyJWT, getBookingsByIdController);
+router.delete('/booking/:bookingId', verifyJWT, cancelBookingController);
+router.get('/bookings/user/:userId', verifyJWT, getBookingsByUserIdController);
+router.post('/booking/verify', verifyBookingController);
 
-// Emergency routes
-router.route('/emergency').post(verifyJWT, createEmergencyContactController);
-router.route('/emergency/user/:userId').get(verifyJWT, getEmergencyContactsByUserIdController);
+// ----------------- Emergency routes -----------------
+router.post('/emergency', verifyJWT, createEmergencyContactController);
+router.get('/emergency/user/:userId', verifyJWT, getEmergencyContactsByUserIdController);
 
-// SOS routes
-router.route('/sos').post(verifyJWT, sosController);
-router.route('/shareLocation').post(verifyJWT, shareLocationController);
+// ----------------- SOS routes -----------------
+router.post('/sos', verifyJWT, sosController);
+router.post('/shareLocation', verifyJWT, shareLocationController);
 
 export default router;
