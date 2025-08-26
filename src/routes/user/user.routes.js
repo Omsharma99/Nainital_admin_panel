@@ -5,7 +5,7 @@ import {
     logoutUser,
     sendOtp,
     verifyOtpAndLogin
-} from "../../controllers/user.controller.js";
+} from "../../controllers/user/user.controller.js";
 
 // ----------------- Schedule controllers -----------------
 import {
@@ -13,7 +13,7 @@ import {
     getScheduleByIdController,
     getScheduleByUserIdController,
     deleteScheduleByIdController
-} from "../../controllers/schedule.controller.js";
+} from "../../controllers/user/schedule.controller.js";
 
 // ----------------- Delivery controllers -----------------
 import {
@@ -21,7 +21,7 @@ import {
     getDeliveriesByIdController,
     getDeliveriesByUserIdController,
     deleteDeliveryByIdController
-} from "../../controllers/delivery.controller.js";
+} from "../../controllers/user/delivery.controller.js";
 
 // ----------------- Booking controllers -----------------
 import {
@@ -30,25 +30,25 @@ import {
     getBookingsByUserIdController,
     cancelBookingController,
     verifyBookingController
-} from "../../controllers/booking.controller.js";
+} from "../../controllers/user/booking.controller.js";
 
 // ----------------- Emergency controllers -----------------
 import {
     createEmergencyContactController,
     getEmergencyContactsByUserIdController
-} from "../../controllers/emergency.controller.js";
+} from "../../controllers/user/emergency.controller.js";
 
 // ----------------- SOS controllers -----------------
 import {
     sosController,
     shareLocationController
-} from "../../controllers/sos.controller.js";
+} from "../../controllers/user/sos.controller.js";
 
 // ----------------- Payment controllers -----------------
 import {
     createOrder,
     verifyAndSavePayment
-} from "../../controllers/payment.controller.js";
+} from "../../controllers/user/payment.controller.js";
 
 // ----------------- Middleware -----------------
 import { verifyJWT } from "../../middlewares/auth.middleware.js";

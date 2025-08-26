@@ -9,9 +9,9 @@ dotenv.config();
 const pool = new Pool({
   host: process.env.DB_HOST,       // RDS endpoint
   port: process.env.DB_PORT || 5432,
-  user: process.env.DB_USER,       // DB username
-  password: process.env.DB_PASSWORD, // DB password
-  database: process.env.DB_NAME,   // DB name
+  user: process.env.DB_USER,       // RDS DB username
+  password: process.env.DB_PASSWORD, // RDS DB password
+  database: process.env.DB_NAME,   // RDS DB name
   max: 20,                         // max pool size (optional)
   idleTimeoutMillis: 30000,        // close idle clients after 30s
   connectionTimeoutMillis: 2000    // return error after 2s if connection fails
@@ -27,10 +27,10 @@ pool.connect()
     console.error('❌ Database connection error:', err);
   });
 
-// Start backend server
+// Start backend server accessible externally
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server is running on port ${PORT} and accessible externally`);
 });
 
 export { pool };
